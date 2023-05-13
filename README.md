@@ -8,3 +8,6 @@ paper on algorithms
 
 - https://www.geeksforgeeks.org/bubble-sort-in-c/
 - https://www.geeksforgeeks.org/c-program-for-counting-sort-2/
+- https://www.geeksforgeeks.org/c-program-for-insertion-sort/
+- https://www.geeksforgeeks.org/c-program-for-selection-sort/
+
