@@ -14,4 +14,4 @@ paper on algorithms
 - https://www.geeksforgeeks.org/heap-sort/
 - https://www.geeksforgeeks.org/c-program-for-counting-sort-2/
 - https://pastebin.com/FxsdJKTZ
-- 
+- https://www.geeksforgeeks.org/bucket-sort-2/
