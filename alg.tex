@@ -1,0 +1,653 @@
+\documentclass[11pt, letter paper]{article}
+\usepackage{pifont}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\usepackage[english]{babel}
+\usepackage{multicol}
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{sample.bib} %Import the bibliography file
+
+\addbibresource{sample.bib}
+
+\begin{document}
+
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+    
+    \lstset{frame=tb,
+      language=C,
+      aboveskip=3mm,
+      belowskip=3mm,
+      showstringspaces=false,
+      columns=flexible,
+      basicstyle={\small\ttfamily},
+      numbers=none,
+      numberstyle=\tiny\color{gray},
+      keywordstyle=\color{blue},
+      commentstyle=\color{dkgreen},
+      stringstyle=\color{mauve},
+      breaklines=true,
+      breakatwhitespace=true,
+      tabsize=3
+    }
+
+    
+    \begin{titlepage}
+        \begin{center}
+            \Large\textbf{A theoretical and experimental comparison of sorting algorithms}
+
+            \vspace{1cm}
+            \large Vasiu Rareș-Andrei
+            
+            \vspace{0.1cm}
+            Department of Computer Science,
+            
+            \vspace{0.1cm}
+            West Univesity Timișoara
+            
+            \vspace{0.1cm}
+            \textbf{Email:}
+            \texttt{rares.vasiu03@e-uvt.ro}
+            
+            \vspace{1cm}
+        \end{center}
+
+        \begin{abstract}
+            In Computer Science we define the sorting concept, as the placing of the components of an array in either increasing or decreasing order.This paper presents 6 types of comparison based sorting algorithms and 3 counting based sorting methods which sort the elements from a data set in increasing order.
+        \end{abstract}
+    \end{titlepage}
+    
+    \tableofcontents 
+
+    \newpage
+
+\section{Introduction}
+\label{sec:intro}
+    Sorting, in its most broad sense, is the issue of finding a specific permutation out of $n!$ possible permutations of the n provided elements.
+    In the pursuit of efficiency, we seek to economize the number of operations of both types: avoiding to collect redundant information and moving as few times the elements as possible.
+    Obviously there are limits regarding the level of balancing and it’s brazen that every element must be checked and moved at least once. In this manner, we cannot expect to sort a set with less then $\Omega(n)$ operations.
+
+    \subsection{Motivation}
+    \label{sec:motiv}
+    The topic in discussion, \emph{sorting algorithms}, it's significant because there are a plethora of fields in which they are applied. Although there have been discovered numerous solutions, they are inadequate regarding their space and time complexity. Moreover, some sorting algorithms are arduous to be implemented in any programming language.
+
+    The approached problem is essential due to:
+    \renewcommand{\labelitemi}{\ding{43}}
+    \renewcommand{\labelitemii}{\ding{45}}
+        \begin{itemize}
+            \item the various real life applications
+            \item the fact that available algorithms fail to operate efficiently when it comes down to:
+                \begin{itemize}
+                    \item memory
+                    \item time
+                \end{itemize}
+        \end{itemize}
+
+    In this paper, we take into consideration the following sorting methods:
+    \begin{description}
+        \item[Bubble Sort:] swaps adjacent elements until no swaps are needed
+            \begin{itemize}
+                \item best case complexity is $O(n)$
+                \item in-place algorithm
+                \item easy to comprehend
+                \item requires lots of comparisons and swaps to sort
+                \item worst case complexity $O(n^2)$\\ \\
+            \end{itemize}
+
+            \item[Insertion Sort:] removes the first/most accessible element from the unsorted part and checks through sorted part of the set to find its position
+            \begin{itemize}
+                \item efficient for small inputs $< 10 ^ 3$
+                \item handles partially sorted sets
+                \item worst case complexity $O(n^2)$
+            \end{itemize} 
+    \end{description}
+
+    These are 2 of the fundamental sorting algorithms which are taught in high-schools with Computer-Science profiles. There are more complex and better in terms of space and time complexity but for now these two are good enough to get a grasp of the problem.
+
+    \subsection{Informal description of the solution}
+    \label{sec:descrip}
+    A solution to the decision of which sorting method is the best for a case in particular or even implementing a new sorting algorithm, is to fully fathom the existing algorithms. This paper is a guide through most frequently used sorting principles in \textsl{Computer Science}, containing the implementation of each method. 
+    
+    Additionally, there are some timing schemes in which the reader best observes the time complexity of the algorithm. I anticipate that by going through this paper, enthusiasts and people interested in sorting algorithms will be able to design better sorting algorithms that handle better the space and time complexity. 
+
+    \subsection{Informal example}
+    \label{sec:example}
+    
+    In the aforementioned section \hyperref[sec:motiv]{1.1}, we described two sorting algorithms: \textit{Bubble Sort} and \textit{Insertion Sort}. Let's have a closer look at the Bubble Sort method. This algorithm works by looping through the given set of elements and comparing two by two adjacent elements, swapping them if and only if they don’t follow the order. Below is the implementation in \emph{Pseudo Code}.
+
+    \begin{lstlisting}
+    BubbleSort(arr):
+    for i = 1 to lenght(arr){
+        for j = length(arr)  downto  i + 1{
+            if  arr[j] < arr[j - 1]{
+                swap(arr[j], arr[j - 1])
+            }
+        }
+    }
+    \end{lstlisting}
+
+    A total of $(n-1) + (n-2) +\dotsc+ 1$ comparisons and swaps are required in the worst-case scenario, where the data set is arranged in reverse sorting order. This mathematical series can be condensed to $\frac{(n^2 - n)}{2}$, giving bubble sort an $O(n^2)$ time complexity.
+
+    This time complexity has the drawback of growing exponentially as the size of the data set does. For instance, bubble sort would need roughly \emph{50 million} comparisons and swaps for a data collection with 10,000 items. Due to its lengthy processing time and potential resource consumption, bubble sort is clearly inefficient for sorting huge data sets.
+
+    \subsection{Declaration of originality}
+    This paper embodies an insignificant contribution to the research branch in the vast domain of Computer Science. Therefore the uniqueness stands out in the explanations besides the elegant algorithm descriptions and time analysis of the sorting methods.
+
+    \subsection{Reading instructions}
+    The sections in this scientific paper discuss:
+    \begin{itemize}
+        \item time and space analysis of algorithms
+        \item correctness proofing
+        \item code snippets
+        \item important remarks
+    \end{itemize}
+
+    \section{Formal Description of Sorting Algorithms and Solution}
+    \subsection{What does sorting mean?}
+    Let’s assume that S is a finite set of n elements $x_1,x_2,x_3,\dotsc, x_n$ from a domain X.
+    
+    Sorting signifies the process of generating a sequence of n elements: $x_{k_1}, x_{k_2}, x_{k_3}, \dotsc, x_{k_n}$ with the property that $k_1, k_2, k_3,\dotsc, k_n$ is a permutation of the integers from $\overline{1,n}$ and $\forall$ $j \in \overline{1, n - 1}: x_{k_j} \leq x_{k_{j+1}}$.
+
+    Sorting, in its most broad sense, is the issue of finding a specific permutation out of n! possible permutations of the n provided elements.
+    Most sorting issues imply that S is supplied in an array or a sequential file. Moreover, the result is also given in the same format. Elements are identified by their location in the structure (for example, \emph{arr[i]} in the array arr). What sorting algorithms are conceivable, will be determined by the access operations given by the underlying data structure.
+
+    Many of the existing sorting algorithms are derived from the following principle: \textbf{while} $\exists(i, j):(i < j) \bigwedge (A[i] > A[j])$ \textbf{do} $A[i] :=: A[j]$, where $:=:$ represents the \emph{interchange operator}.
+
+    Nevertheless sorting algorithms that do not directly swap pairs of items or leverage an array as the underlying data structure, can be regarded of as adhering to the above model.
+
+    In order to sort a set of elements, there are two vital steps to take into account:
+    \begin{itemize}
+        \item Gathering information regarding the order of the given elements
+        \item Ordering the elements
+    \end{itemize}
+    
+    \subsection{Solution}
+    \label{sec:algsSorting}
+    \cite{review} Many different sorting algorithms have been developed and improved to make sorting fast. As a measure of performance mainly the average 
+    number of operations or the average execution times of these algorithms have been investigated 
+    and compared. There is no one sorting method that is best for every situation. Some of 
+    the factors to be considered in choosing a sorting algorithm include the size of the list to be 
+    sorted, the programming effort, the number of words of main memory available, the size of disk or 
+    tape units, the extent to which the list is already ordered, and the distribution of values. 
+    
+    Algorithms regarding sorting approach are of two main categories:
+    \begin{description}
+        \item[Comparison based algorithms: ] order data by examing each element in turn and placing it in the sorted position.
+            \begin{itemize}
+                \item Bubble Sort
+                \item Insertion Sort
+                \item Selection Sort
+                \item Merge Sort
+                \item Quick Sort
+                \item Heap Sort
+            \end{itemize} 
+
+        \item[Counting based algorithms: ] sort integers of small size by using parts of the elements from the set A as indices into a sorted set
+            \begin{itemize}
+                \item Counting Sort
+                \item Radix Sort
+                \item Bucket Sort
+            \end{itemize}
+    \end{description}
+
+    Arbitrarily, for demonstration purposes, we are going to present the Merge Sort Algorithm. \\
+
+    \cite{Eric} \textbf{Merge Sort} is one of the very first algorithms create for general-purpose stored-programm computers. This method was proposed and developed by \emph{John von Neumann} in 1945. It was later described in detail in an article with the American mathematician, Herman Goldstine in 1947, as one of the first non-numerical programs for the EDVAC.
+
+    \cite{Morin} It embodies a classic model of a recursive divide et impera: if the size of the array A is maximum 1, then the array is already sorted. In this case there is nothing else to be done. Otherwise, we divide our array A into two halves, $B = A[0], \dotsc, A[\frac{n}{2} - 1]$ and $C = A[\frac{n}{2}], \dotsc, A[n - 1]$. Call recursively the function to sort $A_0$ and $A_1$. Additionally, merge the newly sorted arrays $B$ and $C$ to get back to the final sorted array A.
+
+    \begin{lstlisting}
+    MergSort(A):
+        if length(A) <= 1{
+            return A
+        }
+        
+        middle = length(A) / 2
+
+        B - MergeSort(A[middle])
+
+        C = MergeSort(A[middle])
+
+        Merge(B, C, A)
+    \end{lstlisting}
+
+    If we were, hypothetically, to compare sorting with merging, we will realize that merging is easier. If either B, or C is the empty set, we include the items from the non-empty set to the empty one. Contrary, find the minimum element in B and the following element in C, adding it to A. \\ \\ \\
+
+    \begin{figure}[t!]
+        \centering
+        \includegraphics[width = \linewidth]{mergeSort.png}
+        \caption{Merge Sort}
+        \label{fig:my_label}
+    \end{figure}
+
+    \begin{lstlisting}
+    Merge(B, C, A):
+        i = 0
+        j = 0
+
+        for k from 0 to length(B) - 1 do{
+            if i = length(B){
+                A[i] = C[j]
+                j = k
+            }
+            else if j = length(C){
+                A[i] = B[i]
+                i = j
+            }
+            else if B[i] < C[j]{
+                A[i] = B[i]
+                i = j
+            }
+            else {
+                A[i] = C[j]
+                j = k
+            }
+        }
+        
+    \end{lstlisting}
+
+    Observe that the aforementioned method computes at most $n - 1$ comparisons.
+    \begin{figure}[t]
+        \centering
+        \includegraphics[width = \linewidth]{Merge Sort Complexity.png}
+        \caption{Merge Sort Complexity}
+        \label{fig:my_label}
+        \cite{Morin}
+    \end{figure}
+
+    \begin{theorem}
+       \cite{Morin} Merge Sort method runs in $O(n \log(n))$ time and has the upper bound of comparisons of $n \log(n)$.
+    \end{theorem}
+    
+    \renewcommand\qedsymbol{QED}
+    \begin{proof}
+    By induction on n, the proof is provided. When given an array of length 0 or 1, the algorithm simply returns without making any comparisons, which is the trivial base case where n = 1. The number of comparisons needed to combine two sorted lists with total lengths of n is n-1. Let C(n) represent the highest number of comparisons that merge sort(a, c) can make on an array a with length n. The inductive hypothesis is applied to the two sub problems if n is even, and we obtain:\cite{Morin}
+        \begin{gather*}
+             C(n) \leq n - 1 + 2 \cdot C(\frac{n}{2}) \\
+                  \leq n - 1 + 2 \cdot ((\frac{n}{2}\log(\frac{n}{2}))) \\
+                  = n - 1 + n \log(\frac{n}{2}) \\
+                  = n - 1 + n \log(n) - n \\
+                  < n\log(n)
+        \end{gather*}
+    \end{proof}
+
+    On the other hand, if n is an odd number, the proof grows in difficulty. We shall introduce two inequalities that are easy to verify:
+        \begin{gather*}
+            \log(x + 1) \leq \log(x)  + 1
+        \end{gather*}
+    for all x $\geq$ 1 and 
+        \begin{gather*}
+            \log(x + \frac{1}{2}) + \log(x - \frac{1}{2}) \leq 2 \cdot \log(x)
+        \end{gather*}
+    for all x $\geq \frac{1}{2}$. After leveraging these inequalities, for \textit{n} odd number we have: \cite{Morin}
+     \begin{proof}  
+        \begin{gather*}
+            C(n) \leq n - 1 + C(\left \lceil \frac{n}{2} \right \rceil) + C(\left \lfloor \frac{n}{2} \right \rfloor) \\
+                \leq n - 1 + \left \lceil \frac{n}{2} \right \rceil \log \left \lceil \frac{n}{2} \right \rceil + \left \lfloor \frac{n}{2} \right \rfloor \log \left \lfloor \frac{n}{2} \right \rfloor \\
+                = n - 1 + (\frac{n}{2} + \frac{1}{2})\log(\frac{n}{2} + \frac{1}{2}) + (\frac{n}{2} - \frac{1}{2})\log(\frac{n}{2} - \frac{1}{2}) \\
+                \leq n - 1 + n \cdot \log(\frac{n}{2}) + (\frac{1}{2}) \cdot \log(\frac{n}{2} + \frac{1}{2}) - \log(\frac{n}{2} - \frac{1}{2}) \\
+                \leq n - 1 + n \cdot \log(\frac{n}{2}) + \frac{1}{2} \\
+                < n + n\log(\frac{n}{2}) \\ 
+                = n + n(\log n - 1) \\
+                = n \log n
+        \end{gather*}
+    \end{proof}
+
+    Remark that \emph{Merge Sort} is stable sorting algorithm because the order of elements of the same value is perserved. In addition to that, it handles decently large data sets with an average complexity of $O(n \cdot \log n)$. Although it is based on the principle of \texttt{Divide Et Impera}, Merge Sort is not an in-place algorithm because it needs and additional memory of $O(n)$ and it divides the set even if the input is already sorted.
+    \section{Model and Implementation of Sorting Algorithms and Solution}
+
+    \subsection{Model}
+    Regarding the real life implementation of sorting methods, they are hard coded in a desirable programming language. Consider a situation in which the requirements are to \textit{implement a sorting algorithm in the C programming language and to keep track of the time needed to compute the sorting of an array of size n}.
+
+    When a machine executes a C file, it goes through a compilation and execution process. Below is a high-level breakdown of the steps:
+    \begin{enumerate}
+        \item \textbf{Compilation}:  A compiler program, such as GCC is used to compile the C file. The compiler analyzes the C file's source code and converts it to binary code, which the computer can comprehend and execute. The generated machine code is stored in the form of an executable file.
+
+        \item \textbf{Linking}: If the C file makes use of external libraries or functions, the compiler connects the C file's code to the relevant libraries or functions. This guarantees that the software has access to and can use the necessary capabilities.
+
+        \item \textbf{Execution}: The executable file is loaded into memory and executed by the computer. The program begins to run from the main function in the C file, and the computer executes the instructions in the program code to complete the tasks.
+    \end{enumerate}
+
+    Compiling a C program via a Linux Machine is done from the \textit{Termainal}. After introducing the command \emph{sudo apt-get update}, we install the required packages to compile C files, such as \textit{sudo apt install build-essential}. To verify that you have installed the gcc compiler on you local machine, run this command in the Terminal \textit{gcc --version}. Moreover, you may need a text editor or an IDE to write code. There are numerous environments to work, but it comes down to personal preferences.
+    
+    In order to customize the timing of a C program, we leverage the function \emph{clock()}, included in the \emph{time.h} library. Below is an example of the design model, on how to solve the proposed problem.
+    
+    \begin{lstlisting}
+    // C implementation
+    #include <stdio.h>
+    #include <time.h>
+    
+    #define MAXSIZE 1024
+    
+    void sort(int *array)
+    {
+        //implement a sorting algorithm
+        puts("Sorted array");
+    }
+    
+    int main()
+    {   
+        int arr[MAXSIZE];
+        
+        clock_t start, end;
+        
+        double totalTime;
+
+        start = clock();
+
+        sort(arr);
+
+        end = clock();
+
+        totalTime = ((double) (end - start) / CLOCKS_PER_SEC);
+
+        printf("Time used to sort: %lf\n", totalTime);
+
+        return 0;
+    }
+    \end{lstlisting}
+    
+    \subsection{Implementation of Sorting Algorithms and Solution}
+    The following papers will contain the implementation of the remaining sorting methods mentioned in \hyperref[sec:algsSorting]{2.2}.
+    
+        \subsubsection{Insertion Sort}
+        Insertion sort takes out the first or most available element from the unsorted part of the set and searches the sorted part for its location.
+
+        \begin{lstlisting}
+    InsertionSort(arr):
+    for i = 2 to lenght(arr){
+        j = i
+
+        while j > 1 and arr[j - 1] > arr[i] {
+            interchange arr[j] with arr[j-1]
+            j = j - 1
+        }
+	   
+    }
+        \end{lstlisting}
+
+        The i-th step adds the i-th element to the first i - 1 elements in the sorted sequence.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width = \linewidth]{insertionSort.png}
+            \caption{Insertion Sort}
+            \label{fig:my_label}
+            \cite{Morin}
+        \end{figure}
+
+        To determine the ideal location for insertion or the ideal piece to be moved, \emph{Insertion Sort} continually searches through a significant portion of the total data set. In addition, efficient search needs random access so that this sorting algorithm is leveraged for internal sorting in central memory. Just like Bubble Sort is easy to comprehend, and likewise is Insertion Sort. Moreover, this method provides excellent performance for small inputs $< 10 ^ 3$ and, on top of that, the best case scenario is that the inner loop will be executed which leads to a linea complexity. Note that this method isn't flawless. Its disadvantage consists of the inability to sort faster than $O(n ^ 2)$ an input in decreasing order to sort it ascending.
+
+        \subsubsection{Selection Sort}
+        The method alternately swaps the first element of the unsorted section of the list with the smallest member in the unsorted portion of the list. \\
+
+        \begin{lstlisting}
+    SelectionSort(arr):
+	minimumIndex = 0
+	for i = 0 to (length(arr) - 2) {
+		minimumIndex = i
+		for j = i + 1 to (length(arr) - 1) {
+			if arr[j] < arr[minimumIndex] {
+				minimumIndex = j
+            }
+        }
+		if minimumIndex != i {
+			interchange arr[minimumIndex] with arr[i]
+      }
+    }
+        \end{lstlisting}
+
+         At each step the index of the minimum element is retained in a variable and the mininum element is moved at the start of the unsorted subarray. Nevertheless, this method has and outstanding performance when it comes down to small data sets and it also does not require any additional space. However, Selection Sort fails to take advantage of already sorted inputs or partially sorted and has the average-worst case performance of $O(n ^ 2)$, due to the numerous operations.
+
+         \subsubsection{Quick Sort}
+         Tony Hoare devised and published Quicksort, another recursive sorting technique, in 1959. Quicksort is an algorithm that combines the principle of divide and conqueror, blending in an efficient method of swapping elements using as few as possible exchanges.
+         The difficult aspect of Quicksort is separating the set into subsets before recursion, so the merging phase is straightforward. Below is high-level short description of the steps of this method:
+         \begin{enumerate}
+             \item Choose a pivot element from the array
+             \item Partition the array into three subarrays containing the elements smaller than the pivot, the pivot element itself, and the elements larger than the pivot
+             \item Recursively quicksort the first and last subarrays.
+         \end{enumerate}
+
+        \begin{quote}
+            \cite{Niev} Quicksort's efficiency depends crucially on the expectation that the divide phase cuts two sizable subarrays rather than merely slicing off an element at either end of the array.
+        \end{quote}
+
+        Both Merge Sort and Quick Sort adhere to a three-step pattern known as \texttt{Divide Et Impera}:
+            \begin{enumerate}
+                \item \textbf{Subdivide:} the supplied problem instance into numerous separate smaller instances of the same problem.
+                \item \textbf{Align:} the Recursion Fairy to each smaller instance.
+                \item \textbf{Combine:} the sorted subset into the main and final solution.
+            \end{enumerate}
+        We quit recursion and solve the issue directly, by brute force, in constant time if the size of any instance falls below a fixed threshold.
+
+        \begin{lstlisting}
+   QuickSort(arr):
+	n = length(arr)
+	if n > 1{
+		Pick a randon pivot element arr[k]
+		r  = Parition(arr, k)
+		QuickSort(arr[1... r - 1])
+		QuickSort(arrr[r + 1 ... n])
+        }
+        \end{lstlisting}
+
+        \begin{lstlisting}
+   Parition(arr[1...n], k):
+	interchange arr[k] wth arr[n]
+	j = 0
+	for i = 1 to n - 1{
+		if arr[i] < arr[n] {
+			j += 1	
+			interchange arr[j] with arr[i]
+      }    
+	   interchange arr[n] with arr[j + 1]
+    }
+	return j + 1
+        \end{lstlisting}
+
+        \begin{quote}
+            \cite{Morin} Quicksort is very closely related to the random binary search trees. In fact, if the input to quicksort consists of n distinct elements, then the quicksort recursion tree is a random binary search tree. 
+            In quicksort, we select a random element x and immediately compare everything to x, putting the smaller elements at the beginning of the array and larger elements at the end of the array. Quicksort then recursively sorts the beginning of the array and the end of the array, while the random binary search tree recursively inserts smaller elements in the left subtree of the root and larger elements in the right subtree of the root.
+        \end{quote}
+
+        We observe that Quick Sort has an average-case complexity of $O(n \log n)$ and it does not require the implementation of the merge step unlike its counterpart, Merge Sort. Unfortunately, this method has a poor performance if the input is sorted in the opposite manner, having the complexity of $O(n ^ 2)$ in that case. Moreover, it is dependant of the pivot element and this results that it is not a stable sorting algorithm, because the elements are swapped according to the pivot's fixed position.
+        
+        \subsubsection{Heap Sort}
+        The heap is the nucleus of an elegant sorting algorithm which executes in $O(n \cdot \log n)$ time. The HeapSort algorithm transforms the initial data set into a new data structure, heap, and then perpetually extracts the minimum element.
+
+        \begin{quote}
+           \cite{Morin} More specifically, a heap stores n elements in an array, A, at array locations A[0], $\dotsc$, A[n - 1] with the smallest value stored at the root, A[0]. After transforming a into a Binary Heap, the heap-sort algorithm repeatedly swaps A[0] and A[n - 1], decrements n, and calls trickle down(0) so that A[0], $\dotsc$,A[n - 2] once again are a valid heap representation. When this process ends (because n = 0) the elements of A are stored in decreasing order, so a is reversed to obtain the final sorted order
+        \end{quote}
+
+        \begin{lstlisting}
+   HeapSort(A):
+	heap = BinaryHeap()
+	heap.a = A
+	heap.n = length(A)
+	middle = heap.n / 2
+
+	for i = middle - 1 to 0{
+		heap.trickle_down(i)
+   }
+	while heap.n > 1 {
+		heap.n = heap.n - 1
+		heap.a[heap.n], heap.a[0] = heap.a[0], heap.a[heap.n]
+		heap.trickle_down(0)
+   }
+	A.reverse()
+        \end{lstlisting}
+        From the code snippet and description we conclude that \emph{Heap Sort} is a stable sorting method, and it handles large data sets within the average-case complexity of $O(n \cdot \log n)$. Unfortunately, this algorithm is not efficient for small data inputs and doesn't perform well on inputs with lots of duplicates. In addition to these drawbacks, Heap Sort needs additional memory to allocate the heap data structure.
+
+        \subsubsection{Counting Sort}
+        Using an auxiliary array c of counters, the counting-sort algorithm sorts the set A. It returns a sorted version of A in the form of an auxiliary array B. The concept of Counting Sort is  straightforward: find the number of occurrences of i in A, for each i $\in \overline{0, k - 1}$  and save this result in c[i]. After sorting, the output will look like this: c[0] instances of 0, c[1] occurrences of 1, c[2] occurrences of 2,..., followed by c[k - 1] occurrences of k - 1.
+
+         \begin{lstlisting}
+   CountingSort(A, k):
+	n = length(A)
+	c = fill_array_with_zeroes(k)
+	for i = 0 to n - 1{
+		c[A[i]] = C[A[i]] + 1
+   }
+	for I = 1 to k - 1{
+		c[i] = c[i] + c[i-1]
+		b = fill_array_with_zeroes(k)
+   }
+	for i = n - 1 to 0{
+		c[A[i]] = C[A[i]] - 1
+		b[c[A[i]]] = A[i]
+   }
+	return b	
+        \end{lstlisting}
+        The first for loop generates the array c, such that each element retains the frequency of elements from A. Theoretically we could, at this point, fill in the output array b with the elements of c, but it’s not going to work if the elements from the set A have duplicates. In the second loop, we compute the sum of the frequencies with the scope of finding in each c[i] the number of elements which are $\leq$ i. At last, the algorithm scans a from the end to start to place its items, into an output array b.
+
+        Overall Counting Sort seem to check all the boxes: it is a stable sorting algorithm, it is easy to code, there are no comparisons required and has an average-case complexity of $O(n + k)$. However, nothing is perfect. Counting sort needs additional memory to sort and has limited applicability. In addition, it doesn't work with negatives entries nor takes advantage of already sorted inputs.
+
+        \subsubsection{Radix Sort}
+        The RadixSort method employs numerous passes of counting-sort to expect for a significantly broader range of maximum values.
+	This algorithm is primarily focused on using $\frac{W}{D}$ passes of counting-sort to order these integers D bits at once in order to sort W-bit numbers. Furthermore,   radix sort initially arranges the numbers according to their least significant D bits, then their next  significant D bits, and so on until the last pass, when the integers are placed due to their most significant D bits.
+        
+        \begin{lstlisting}
+   RadixSort(A):
+	n = length(A)
+	for p = 0 to (W/D - 1)
+		c = fill_array_with_zeroes(2 ^ d)
+		b = fill_array_with_zeroes(n)
+		for i = 0 to n - 1
+			bits = (A[i] >> d * p) ^ (2 ^ d - 1) 
+			c[bits] += 1		
+		for i = 1 to 2 ^ d - 1
+			c[i] += c[i-1]
+		for i = n - 1 to 0
+			bits = (A[i] >> d * p) ^ (2 ^ d - 1)
+			c[bits] -= 1
+			b[c[bits]] = A[i]
+		A = b
+	return b
+	
+        \end{lstlisting}
+
+        \begin{quote}
+            Radix-sort performs $\frac{W}{D}$ passes of counting-sort. Each pass requires $O(n + 2D)$ time. Therefore, the performance of radix-sort is given by the following formula: $O((\frac{W}{D} \cdot (n + 2 ^ D))$.
+        \end{quote}
+
+        To sum up, Radix Sort has a linear time complexity of $O((\frac{W}{D} \cdot (n + 2 ^ D))$, embodies a stable sorting algorithm and it is efficient for large data sets. On the other hand, it is not recommended to sort floating-point numbers or negative numbers, nor it is efficient with small data sets.
+
+        \subsubsection{Bucket Sort}
+        The straightforward and effective sorting technique known as bucket sort splits an array into a number of buckets, before sorting the items inside each bucket either recursively or using a different sorting algorithm. By breaking up an array's items into several smaller arrays, each of which can be sorted more quickly than the main array, bucket sort seeks to solve this problem.  Here is the pseudo code for this algorithm: \\
+
+        \begin{lstlisting}
+   BucketSort(A, n, m): // "m" represents the number of buckets
+	index = 1
+        for i = 1 to m {
+		buckets[i] = empty array
+   }
+	for i = 1 to n {
+		bIndex = floor(A[i] * m) 
+		append A[i] to buckets[bIndex]
+   }
+	for i =1 to n
+		sort buckets[i]
+	for i = 1 to m
+		for j = 1 to length(buckets[i])
+			A[index] = buckets[i][j]
+			index +=1
+	return A
+
+        \end{lstlisting}
+
+        At last, \emph{Bucket Sort} handles inputs with non-uniform distributions, having an average-case complexity of $O(n + k)$. Its drawbacks include the dependency on an efficient secondary sorting algorithm and it's not suitable for using large ranges of values.
+
+        \section{Case Study}
+        In this section we are going to present the time complexity of each sorting algorithm to get to a conclusion based on developed test cases and input. The testing part will be simulated on a Linux machine, using the Terminal command \texttt{time program.out}. After presenting all the running times, we will make observations regarding different algorithm's performance.
+                        \newline
+        \begin{enumerate}
+            \item Bubble Sort
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width = \linewidth]{BubbleSortTime.png}
+                    \caption{Bubble Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \newpage
+                \item Insertion Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{InsertionSort Time.png}
+                    \caption{Insertion Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Selection Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{SelectionSort Time.png}
+                    \caption{Selection Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Merge Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{Merge Sort Time.png}
+                    \caption{Merge Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Quick Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{Merge Sort Time.png}
+                    \caption{Quick Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Heap Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{Heap Sort Time.png}
+                    \caption{Heap Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Counting Sort
+                \begin{figure}[h!]
+                    \centering
+                    \includegraphics[width = \linewidth]{Couting Sort.png}
+                    \caption{Couting Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                
+                \item Radix Sort
+                \begin{figure}
+                    \centering
+                    \includegraphics[width = \linewidth]{Radix Sort.png}
+                    \caption{Radix Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+                \item Bucket Sort
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width = \linewidth]{Bucket Sort.png}
+                    \caption{Bucket Sort Time Analysis}
+                    \label{fig:my_label}
+                \end{figure}
+        \end{enumerate}
+
+        \section{Related Work}
+        Comparing this paper's results from testing all the aforementioned algorithms with an article entitled \cite{enhance} \textbf{An enhancement of Major Sorting Algorithms} written by \emph{Jehad Alnihoud and Rami Mansi} from the \emph{Department of Computer Science, Al al-Bayt Univseristy, Jordan} we observe simliraties in terms of final outputs of sorting methods. The most significant differences are seen in the observation goal, this paper is focused strictly on the time executed by the sorting function, while the other article's aim to present also the number of swaps and comparisons performed. Additionally we observe additional mathematical proofing of complexity and more graphs regarding the way its displayed the results of timing methods of sorting.
+
+        \section{Conclusions}
+        From 10 to 1000 total elements, we can see that the average running time of this Bubble Sort for different inputs it is approximately the same, but we can also see that the running time starts to increase extremely quickly around $n > 1000$.
+    	The same observation is also valid the algorithm Inserion Sort, but it performs slightly faster on larger test than     Bubble Sort. Regarding Selection Sort, we can confirm that its overall execution time is similar to Insertion Sort. Therefore, also        Selection Sort is faster than Bubble Sort.
+	  Considering the Merge Sort’s time performance, for inputs smaller than 1000 their execution take the same amount of time and   
+        close to Insertion Sort and Selection Sort. However, the major difference comes when the inputs are large enough $(>5000)$ to observe that Merge Sort is the fastest sorting algorithm for now.
+    	Quick Sort on the tests given by me, performs identically to Merge Sort, until the input gets larger and larger to realize that      without the merging part of code, it overtakes Merge Sort $(n>10000)$.
+    	Heap Sort, on the other hand, it was supposed to be the best performer out of all the comparison based algorithms,             
+        unfortunately, on the test with 100.000 entries Quick Sort did a better job at sorting the set. For small inputs $(<100.000)$ the time of Heap Sort is similar amongst its results.
+        Counting Sort’s performance fluctuates from doubling the time before and being the fastest algorithm amid all methods. Between 10-500 elements, this algorithm produces unpredictable outcomes, either being the slowest or the fastest. But for very large data set, n = 100.000, it sorted that array the fastest. Radix Sort performs identically with Counting Sort on inputs $> 1000$, but slower than its counterpart on sets with less than 1000 entries. Radix could perform better if the elements would have fewer digits in their construction. Surprisingly, Bucket Sort was the worst performer out of counting based algorithms, being slower on almost each test from 10 to 100.000. All three algorithms have a linear growing tendency, no matter the inputs. Therefore, there are not any gargantuan differences between tests.Coming from the comparison based algorithms, Quick Sort is due to be the winner of the competition of performance and execution time. From the other side, the Counting Sort algorithm won deliberately  through all 8 tests against its counterparts in this test. Nevertheless, the input data may have been satisfactory for the assumptions of counting sort and that is the reason it won the tests. All algorithms have their strengths and weaknesses and they’re usage varies from case to case, but you have to sacrifice either time either memory, because both cannot be done simultaneously.
+
+        \printbibliography
+\end{document}
