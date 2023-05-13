@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <time.h>
-
 #define MAXSIZE 100001
 
 void counting_sort(int arr[], int n)
