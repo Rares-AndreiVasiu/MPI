@@ -10,14 +10,14 @@ int main()
 
     FILE *f = fopen("randomNums.csv", "w");
 
+    for (int i = 0; i < 1000; ++i)
+    {
+        int r = rand() % 100;
 
-        for(int i = 0; i < 1000; ++ i)
-        {
-            int r = rand() % 100;
-
-            fprintf(f, "%d,", r);
-        }
-        fprintf(f, "\n\n");
+        fprintf(f, "%d,", r);
+    }
+    fprintf(f, "\n\n");
+    
     fclose(f);
 
     return 0;
