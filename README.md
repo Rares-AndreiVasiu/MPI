@@ -11,4 +11,5 @@ paper on algorithms
 - https://www.geeksforgeeks.org/c-program-for-insertion-sort/
 - https://www.geeksforgeeks.org/c-program-for-selection-sort/
 - https://www.geeksforgeeks.org/c-program-for-merge-sort/
+- https://www.geeksforgeeks.org/quick-sort/
 
